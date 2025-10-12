@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ioana\\MADARAS_IOANA_Lab1\\MADARAS_IOANA_Lab1.csproj": {}
+    "C:\\Users\\Vascul\\source\\repos\\ioanamadaras\\medii-de-programare\\lab1\\MADARAS_IOANA_Lab1.csproj": {}
   },
   "projects": {
-    "D:\\ioana\\MADARAS_IOANA_Lab1\\MADARAS_IOANA_Lab1.csproj": {
+    "C:\\Users\\Vascul\\source\\repos\\ioanamadaras\\medii-de-programare\\lab1\\MADARAS_IOANA_Lab1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ioana\\MADARAS_IOANA_Lab1\\MADARAS_IOANA_Lab1.csproj",
+        "projectUniqueName": "C:\\Users\\Vascul\\source\\repos\\ioanamadaras\\medii-de-programare\\lab1\\MADARAS_IOANA_Lab1.csproj",
         "projectName": "MADARAS_IOANA_Lab1",
-        "projectPath": "D:\\ioana\\MADARAS_IOANA_Lab1\\MADARAS_IOANA_Lab1.csproj",
+        "projectPath": "C:\\Users\\Vascul\\source\\repos\\ioanamadaras\\medii-de-programare\\lab1\\MADARAS_IOANA_Lab1.csproj",
         "packagesPath": "C:\\Users\\Vascul\\.nuget\\packages\\",
-        "outputPath": "D:\\ioana\\MADARAS_IOANA_Lab1\\obj\\",
+        "outputPath": "C:\\Users\\Vascul\\source\\repos\\ioanamadaras\\medii-de-programare\\lab1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
