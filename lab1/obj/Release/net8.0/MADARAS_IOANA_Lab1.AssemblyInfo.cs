@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MADARAS_IOANA_Lab1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+33b0228aedd45a907e2ea6d1d0529f0fd2fd35a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce5fd66ea19b7a702dc6935f989397d458852c00")]
 [assembly: System.Reflection.AssemblyProductAttribute("MADARAS_IOANA_Lab1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MADARAS_IOANA_Lab1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
