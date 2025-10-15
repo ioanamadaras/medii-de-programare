@@ -10,7 +10,6 @@ namespace MADARAS_IOANA_Lab2.Models
 
         [Display(Name ="Book Title")]
         public string Title { get; set; }
-        public string Author { get; set; }
 
         [Column(TypeName = "decimal(6,2)")]
         public decimal Price { get; set; }
@@ -20,5 +19,9 @@ namespace MADARAS_IOANA_Lab2.Models
 
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
+
+        //foreign key to author
+        public int? AuthorID { get; set; }
+        public Author? Author { get; set; }
     }
 }
