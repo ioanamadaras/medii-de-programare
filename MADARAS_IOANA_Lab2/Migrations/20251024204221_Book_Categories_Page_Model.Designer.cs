@@ -4,6 +4,7 @@ using MADARAS_IOANA_Lab2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MADARAS_IOANA_Lab2.Migrations
 {
     [DbContext(typeof(MADARAS_IOANA_Lab2Context))]
-    partial class MADARAS_IOANA_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20251024204221_Book_Categories_Page_Model")]
+    partial class Book_Categories_Page_Model
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
