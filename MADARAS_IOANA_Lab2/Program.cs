@@ -1,12 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MADARAS_IOANA_Lab2.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MADARAS_IOANA_Lab2.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<MADARAS_IOANA_Lab2Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MADARAS_IOANA_Lab2Context") ?? throw new InvalidOperationException("Connection string 'MADARAS_IOANA_Lab2Context' not found.")));
+
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+
+options.UseSqlServer(builder.Configuration.GetConnectionString("MADARAS_IOANA_Lab2Context") 
+    ?? throw new InvalidOperationException("Connection string 'MADARAS_IOANA_Lab2Context' not found.")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<LibraryIdentityContext>();
 
 var app = builder.Build();
 
