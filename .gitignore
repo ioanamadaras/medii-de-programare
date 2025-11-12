@@ -1,1 +1,60 @@
-*.vs
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio working folders
+.vs/
+.vscode/
+
+# ASP.NET Core logs
+*.log
+
+# IIS Express
+.vsconfig
+.vspscc
+.vscode/
+.vs/
+iisexpress/
+
+# User secrets
+secrets.json
+
+# Dotnet tools
+*.dotCover
+*.ncrunch*
+*.localhistory
+
+# Rider files
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Publish output
+publish/
+wwwroot/lib/
+
+# Generated files
+Generated_Code/
+
+# Coverage and test results
+TestResults/
+*.coverage
+*.coveragexml
+
+# Npm packages (if you use npm for frontend)
+node_modules/
+
+# Other environment files
+.env
+.env.*
