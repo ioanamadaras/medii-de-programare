@@ -1,5 +1,6 @@
 ﻿using MADARAS_IOANA_Lab2.Data;
 using MADARAS_IOANA_Lab2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MADARAS_IOANA_Lab2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : BookCategoriesPageModel
     {
         private readonly MADARAS_IOANA_Lab2.Data.MADARAS_IOANA_Lab2Context _context;
