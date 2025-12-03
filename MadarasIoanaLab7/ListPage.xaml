@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MadarasIoanaLab7"
              x:Class="MadarasIoanaLab7.ListPage"
              Title="ListPage">
 
@@ -8,7 +9,13 @@
 
         <Editor Placeholder="Enter the description of the shopping list"
                 Text="{Binding Description}"
-                HeightRequest="100" />
+                HeightRequest="50">
+
+            <Editor.Behaviors>
+                <local:ValidationBehaviour />
+            </Editor.Behaviors>
+
+        </Editor>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -24,6 +31,29 @@
                     Clicked="OnDeleteButtonClicked" />
         </Grid>
 
+        <ListView x:Name="listView" IsRefreshing="True"
+                  Margin="20">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Detail="{Binding Description}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+        <Button Text="Delete Item"
+                MaximumWidthRequest="300"
+                Clicked="OnDeleteItemButtonClicked"
+                Margin="0, 10, 0, 10"
+                /> 
+
+
+        <Button Text="Add/Choose Item to buy"
+                MaximumWidthRequest="300"
+                Clicked="OnChooseButtonClicked" />
+
     </StackLayout>
 
 </ContentPage>
+
