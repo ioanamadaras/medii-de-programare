@@ -41,6 +41,14 @@ namespace MadarasIoanaLab7.Data
             shoplistid);
         }
 
+        public Task<List<ListProduct>> GetListProductsLinksAsync(int shoplistid)
+        {
+            return _database.Table<ListProduct>()
+                            .Where(lp => lp.ShopListID == shoplistid)
+                            .ToListAsync();
+        }
+
+
 
         public Task<int> SaveProductAsync(Product product)
         {

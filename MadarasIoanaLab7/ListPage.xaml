@@ -31,7 +31,7 @@
                     Clicked="OnDeleteButtonClicked" />
         </Grid>
 
-        <ListView x:Name="listView" IsRefreshing="True"
+        <ListView x:Name="listView"
                   Margin="20">
 
             <ListView.ItemTemplate>

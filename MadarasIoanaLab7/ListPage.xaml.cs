@@ -12,14 +12,22 @@ public partial class ListPage : ContentPage
 
     async void OnDeleteItemButtonClicked(object sender, EventArgs e)
     {
-        Product p;
-
-        if (listView.SelectedItem != null)
+        if (listView.SelectedItem is Product p)
         {
-            p = listView.SelectedItem as Product;
-            await App.Database.DeleteProductAsync(p);
+            var shopList = (ShopList)BindingContext;
+
+            var lpList = await App.Database.GetListProductsLinksAsync(shopList.ID);
+            var link = lpList.FirstOrDefault(x => x.ProductID == p.ID);
+
+            if (link != null)
+            {
+                await App.Database.DeleteListProductAsync(link);
+            }
+
+            listView.ItemsSource = await App.Database.GetListProductsAsync(shopList.ID);
         }
     }
+
 
     async void OnChooseButtonClicked(object sender, EventArgs e)
     {

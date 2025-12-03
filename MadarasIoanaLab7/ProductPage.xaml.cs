@@ -31,13 +31,18 @@ public partial class ProductPage : ContentPage
             await Navigation.PopAsync();
         }
     }
-
+    void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        if (e.SelectedItem != null)
+            BindingContext = e.SelectedItem as Product;
+    }
 
     async void OnSaveButtonClicked(object sender, EventArgs e)
     {
         var product = (Product)BindingContext;
         await App.Database.SaveProductAsync(product);
         listView.ItemsSource = await App.Database.GetProductsAsync();
+        BindingContext = new Product();
     }
 
     async void OnDeleteButtonClicked(object sender, EventArgs e)

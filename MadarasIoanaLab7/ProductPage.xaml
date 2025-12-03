@@ -39,7 +39,8 @@
                           Grid.Column="0"
                           x:Name="listView"
                           Margin="20"
-                          IsRefreshing="True">
+                          ItemSelected="OnItemSelected"
+                         >
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
