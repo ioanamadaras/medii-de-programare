@@ -1,21 +1,29 @@
-﻿namespace MadarasIoanaLab7;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class ValidationBehaviour : Behavior<Editor>
+namespace MadarasIoanaLab7
 {
-    protected override void OnAttachedTo(Editor entry)
+    class ValidationBehaviour : Behavior<Editor>
     {
-        entry.TextChanged += OnEntryTextChanged;
-        base.OnAttachedTo(entry);
-    }
-    protected override void OnDetachingFrom(Editor entry)
-    {
-        entry.TextChanged -= OnEntryTextChanged;
-        base.OnDetachingFrom(entry);
-    }
-    void OnEntryTextChanged(object sender, TextChangedEventArgs args)
-    {
-        ((Editor)sender).BackgroundColor =
-        string.IsNullOrEmpty(args.NewTextValue) ? Color.FromRgba("#AA4A44") :
-        Color.FromRgba("#FFFFFF");
+        protected override void OnAttachedTo(Editor entry)
+        {
+            entry.TextChanged += OnEntryTextChanged;
+            base.OnAttachedTo(entry);
+        }
+
+        protected override void OnDetachingFrom(Editor entry)
+        {
+            entry.TextChanged -= OnEntryTextChanged;
+            base.OnDetachingFrom(entry);
+        }
+
+        void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+        {
+            ((Editor)sender).BackgroundColor = 
+                string.IsNullOrEmpty(args.NewTextValue) ? Color.FromRgba("#AA4A44") : Color.FromRgba("#FFFFFF");
+        }
     }
 }
