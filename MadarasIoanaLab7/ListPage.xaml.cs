@@ -1,68 +1,56 @@
-﻿namespace MadarasIoanaLab7;
 using MadarasIoanaLab7.Models;
+
+namespace MadarasIoanaLab7;
 
 public partial class ListPage : ContentPage
 {
-    ShopList sl;
-    public ListPage()
-    {
-        InitializeComponent();
-        sl = (ShopList)this.BindingContext;
-    }
-
-    async void OnDeleteItemButtonClicked(object sender, EventArgs e)
-    {
-        if (listView.SelectedItem is Product p)
-        {
-            var shopList = (ShopList)BindingContext;
-
-            var lpList = await App.Database.GetListProductsLinksAsync(shopList.ID);
-            var link = lpList.FirstOrDefault(x => x.ProductID == p.ID);
-
-            if (link != null)
-            {
-                await App.Database.DeleteListProductAsync(link);
-            }
-
-            listView.ItemsSource = await App.Database.GetListProductsAsync(shopList.ID);
-        }
-    }
-
-
-    async void OnChooseButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(
-            new ProductPage((ShopList)this.BindingContext)
-            {
-                BindingContext = new Product()
-            }
-        );
-    }
-
+	public ListPage()
+	{
+		InitializeComponent();
+	}
 
     async void OnSaveButtonClicked(object sender, EventArgs e)
     {
         var slist = (ShopList)BindingContext;
         slist.Date = DateTime.UtcNow;
-
+        Shop selectedShop = (ShopPicker.SelectedItem as Shop);
+        slist.ShopID = selectedShop.ID;
         await App.Database.SaveShopListAsync(slist);
         await Navigation.PopAsync();
     }
-
     async void OnDeleteButtonClicked(object sender, EventArgs e)
     {
         var slist = (ShopList)BindingContext;
-
         await App.Database.DeleteShopListAsync(slist);
         await Navigation.PopAsync();
     }
 
+    async void OnDeleteProductButtonClicked(object sender, EventArgs e)
+    {
+        var slist = (ShopList)BindingContext;
+        var prod = listView.SelectedItem as Product;
+
+        if(prod == null)
+            return;
+
+        await App.Database.DeleteProductFromListAsync(slist.ID, prod.ID);
+        listView.ItemsSource = await App.Database.GetListProductsAsync(slist.ID);
+    }
+
+    async void OnChooseButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ProductPage((ShopList)
+            this.BindingContext) {
+            BindingContext = new Product()
+        });
+    }
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
+        var items = await App.Database.GetShopsAsync();
+        ShopPicker.ItemsSource = (System.Collections.IList)items;
+        ShopPicker.ItemDisplayBinding = new Binding("ShopDetails");
         var shopl = (ShopList)BindingContext;
-
         listView.ItemsSource = await App.Database.GetListProductsAsync(shopl.ID);
     }
 

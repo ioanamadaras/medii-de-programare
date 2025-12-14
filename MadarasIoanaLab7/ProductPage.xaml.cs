@@ -1,63 +1,51 @@
 using MadarasIoanaLab7.Models;
 namespace MadarasIoanaLab7;
 
+
 public partial class ProductPage : ContentPage
 {
-    ShopList sl;
-    public ProductPage(ShopList slist)
+	ShopList sl;
+	public ProductPage(ShopList slist)
 	{
 		InitializeComponent();
-        sl = slist;
+		sl = slist;
     }
 
-    async void OnAddButtonClicked(object sender, EventArgs e)
-    {
-        Product p;
+	async void OnSaveButtonClicked(object sender, EventArgs e)
+	{
+		var product = (Models.Product)BindingContext;
+		await App.Database.SaveProductAsync(product);
+		listView.ItemsSource = await App.Database.GetProductsAsync();
+    }
 
-        if (listView.SelectedItem != null)
-        {
-            p = listView.SelectedItem as Product;
+	async void OnDeleteButtonClicked(object sender, EventArgs e)
+	{
+		var product = (Models.Product)BindingContext;
+		await App.Database.DeleteProductAsync(product);
+		listView.ItemsSource = await App.Database.GetProductsAsync();
+    }
 
-            var lp = new ListProduct()
-            {
-                ShopListID = sl.ID,
-                ProductID = p.ID
-            };
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+		listView.ItemsSource = await App.Database.GetProductsAsync();
+    }
 
-            await App.Database.SaveListProductAsync(lp);
+	async void OnAddButtonClicked(object sender, EventArgs e)
+	{
+		Product p;
+		if(listView.SelectedItem != null)
+		{
+			p = listView.SelectedItem as Product;
+			var lp = new ListProduct()
+			{
+				ShopListID = sl.ID,
+				ProductID = p.ID
+			};
+			await App.Database.SaveListProductAsync(lp);
+			p.ListProducts = new List<ListProduct> { lp };
 
-            p.ListProducts = new List<ListProduct> { lp };
-
-            await Navigation.PopAsync();
+			await Navigation.PopAsync();
         }
     }
-    void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-    {
-        if (e.SelectedItem != null)
-            BindingContext = e.SelectedItem as Product;
-    }
-
-    async void OnSaveButtonClicked(object sender, EventArgs e)
-    {
-        var product = (Product)BindingContext;
-        await App.Database.SaveProductAsync(product);
-        listView.ItemsSource = await App.Database.GetProductsAsync();
-        BindingContext = new Product();
-    }
-
-    async void OnDeleteButtonClicked(object sender, EventArgs e)
-    {
-        var product = listView.SelectedItem as Product;
-        await App.Database.DeleteProductAsync(product);
-        listView.ItemsSource = await App.Database.GetProductsAsync();
-    }
-
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
-        listView.ItemsSource = await App.Database.GetProductsAsync();
-    }
-
-
-
 }

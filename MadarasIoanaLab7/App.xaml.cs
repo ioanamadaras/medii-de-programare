@@ -2,19 +2,20 @@
 using MadarasIoanaLab7.Data;
 using System.IO;
 
-
 namespace MadarasIoanaLab7
 {
     public partial class App : Application
     {
         static ShoppingListDatabase database;
+
         public static ShoppingListDatabase Database
         {
             get
             {
                 if (database == null)
                 {
-                    database = new ShoppingListDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ShoppingList.db3"));
+                    database = new ShoppingListDatabase(
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ShoppingList.db3"));
                 }
                 return database;
             }
@@ -22,8 +23,11 @@ namespace MadarasIoanaLab7
         public App()
         {
             InitializeComponent();
+        }
 
-            MainPage = new AppShell();
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            return new Window(new AppShell());
         }
     }
 }

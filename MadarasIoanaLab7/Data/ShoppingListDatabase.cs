@@ -1,54 +1,25 @@
-﻿using SQLite;
-using System;
+﻿using System;
+using SQLite;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MadarasIoanaLab7.Models;
 
-
 namespace MadarasIoanaLab7.Data
 {
     public class ShoppingListDatabase
     {
         readonly SQLiteAsyncConnection _database;
+
         public ShoppingListDatabase(string dbPath)
         {
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<ShopList>().Wait();
             _database.CreateTableAsync<Product>().Wait();
             _database.CreateTableAsync<ListProduct>().Wait();
+            _database.CreateTableAsync<Shop>().Wait();
         }
-
-        public Task<int> SaveListProductAsync(ListProduct listp)
-        {
-            if (listp.ID != 0)
-            {
-                return _database.UpdateAsync(listp);
-            }
-            else
-            {
-                return _database.InsertAsync(listp);
-            }
-        }
-
-        public Task<List<Product>> GetListProductsAsync(int shoplistid)
-        {
-            return _database.QueryAsync<Product>(
-                "select P.ID, P.Description from Product P"
-                + " inner join ListProduct LP"
-                + " on P.ID = LP.ProductID where LP.ShopListID = ?",
-            shoplistid);
-        }
-
-        public Task<List<ListProduct>> GetListProductsLinksAsync(int shoplistid)
-        {
-            return _database.Table<ListProduct>()
-                            .Where(lp => lp.ShopListID == shoplistid)
-                            .ToListAsync();
-        }
-
-
 
         public Task<int> SaveProductAsync(Product product)
         {
@@ -72,17 +43,18 @@ namespace MadarasIoanaLab7.Data
             return _database.Table<Product>().ToListAsync();
         }
 
-
-        public Task<List<ShopList>> GetShopListsAsync()
+        public Task<List<ShopList>> GetShopListAsync()
         {
             return _database.Table<ShopList>().ToListAsync();
         }
+
         public Task<ShopList> GetShopListAsync(int id)
         {
             return _database.Table<ShopList>()
                             .Where(i => i.ID == id)
                             .FirstOrDefaultAsync();
         }
+
         public Task<int> SaveShopListAsync(ShopList slist)
         {
             if (slist.ID != 0)
@@ -94,16 +66,63 @@ namespace MadarasIoanaLab7.Data
                 return _database.InsertAsync(slist);
             }
         }
-
         public Task<int> DeleteShopListAsync(ShopList slist)
         {
             return _database.DeleteAsync(slist);
         }
 
-        public Task<int> DeleteListProductAsync(ListProduct listp)
+        public Task<int> SaveListProductAsync(ListProduct listp)
         {
-            return _database.DeleteAsync(listp);
+            if (listp.ID != 0)
+            {
+                return _database.UpdateAsync(listp);
+            }
+            else
+            {
+                return _database.InsertAsync(listp);
+            }
+        }
+
+        public Task<List<Product>> GetListProductsAsync(int shoplistid)
+        {
+            return _database.QueryAsync<Product>(
+                "select P.Id, P.Description from Product P " +
+                "inner join ListProduct LP " +
+                "on P.ID = LP.ProductID where LP.ShopListID = ?",
+                shoplistid);
+        }
+
+        public async Task<int> DeleteProductFromListAsync(int slistid, int productid)
+        {
+            var listProduct = await _database.Table<ListProduct>()
+                .Where(lp => lp.ShopListID == slistid && lp.ProductID == productid)
+                .FirstOrDefaultAsync();
+            if (listProduct != null)
+            {
+                return await _database.DeleteAsync(listProduct);
+            }
+            return 0;
+        }
+        public Task<List<Shop>> GetShopsAsync()
+        {
+            return _database.Table<Shop>().ToListAsync();
+        }
+        public Task<int> SaveShopAsync(Shop shop)
+        {
+            if (shop.ID != 0)
+            {
+                return _database.UpdateAsync(shop);
+            }
+            else
+            {
+                return _database.InsertAsync(shop);
+            }
+        }
+
+        public Task<int> DeleteShopAsync(Shop shop)
+        {
+            return _database.DeleteAsync(shop);
+
         }
     }
 }
-
